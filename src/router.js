@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './components/Home.vue'
 import Login from './components/Auth/Login'
+import Logout from './components/Auth/Logout'
 import Register from './components/Auth/Register'
 import Secret from './components/SecretPage'
 
@@ -19,6 +20,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: Logout
     },
     {
       path: '/register',

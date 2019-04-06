@@ -9,11 +9,14 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || null
   },
   getters: {
-
+    loggedIn: state => state.token !== null
   },
   mutations: {
     retrieveToken(state, token) {
       state.token = token;
+    },
+    destroyToken(state) {
+      state.token = null;
     }
   },
   actions: {
@@ -26,6 +29,17 @@ export default new Vuex.Store({
         commit('retrieveToken', token);
       } catch (e) {
         return e;
+      }
+    },
+    async logout(context) {
+      if (context.getters.loggedIn) {
+        try {
+          localStorage.removeItem('token');
+          context.commit('destroyToken')
+        } catch (e) {
+          localStorage.removeItem('token');
+          return e;
+        }
       }
     }
   }
