@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Login page</h1>
-    <form @submit.prevent="login">
+    <form @submit.prevent="loginAndRedirect">
       <div>
         <input type="email" placeholder="email" v-model="credentials.email">
       </div>
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
+
   export default {
     name: "Login",
     data() {
@@ -22,6 +24,13 @@
           email: '',
           password: ''
         }
+      }
+    },
+    methods: {
+      ...mapActions(['login']),
+      async loginAndRedirect() {
+        await this.login(this.credentials);
+        this.$router.push('/');
       }
     },
   }
