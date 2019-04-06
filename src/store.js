@@ -32,11 +32,14 @@ export default new Vuex.Store({
       }
     },
     async logout(context) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ` + context.state.token;
       if (context.getters.loggedIn) {
         try {
+          await axios.post('http://127.0.0.1:8000/api/auth/logout');
           localStorage.removeItem('token');
           context.commit('destroyToken')
         } catch (e) {
+          await axios.post('http://127.0.0.1:8000/api/auth/logout');
           localStorage.removeItem('token');
           return e;
         }
